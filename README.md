@@ -41,6 +41,7 @@ Note that when a order is created, the corresponding products' stock must be upd
 
 ## Instructions
 
+### For code
 1. Fork this repository
 2. Get a local copy of your fork
 3. Create a new branch
@@ -49,3 +50,9 @@ Note that when a order is created, the corresponding products' stock must be upd
 6. Commit your work when the command above reports an OK result
 7. Push your work to your fork
 8. Send a pull request from your fork's branch to this repo
+
+### For deployment
+1. Complete the `Dockerfile` to assemble an image.
+2. Configure with `Gunicorn` and connect with a web server or reverse proxy that you prefer.
+3. Deploy it in the cloud infrastructure that you prefer (Ask for an instance if you don't have).
+4. Create a basic document with the steps to deploy.
