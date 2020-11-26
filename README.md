@@ -1,10 +1,10 @@
-# 04 Point of sale test
+# Point of sale test
 
 Write a very basic Django project that uses Django Rest Framework to provide a RESTful API for a point of sale that let's you track the inventory of products and the orders done.
 
-Use the provided project boilerplate and add the code needed to pass all the unit tests provided in both `modules.inventory.tests` and `modules.orders.tests`.
+Use the provided project boilerplate and add the code needed to pass all the *unit tests* provided in both `modules.inventory.tests` and `modules.orders.tests`.
 
-Use at least the models provided in both `modules.inventory.models` and `modules.orders.models`, but feel free to add any extra model if needed.
+Use at least the models provided in both `modules.inventory.models` and `modules.orders.models`, but feel free to add any extra model if needed. You are only allowed to use `django-rest-framework` and no other library.
 
 The API must use **JSON** format and should provide the following endpoints and functionalities:
 
