@@ -56,3 +56,18 @@ Note that when a order is created, the corresponding products' stock must be upd
 2. Configure with `Gunicorn` and connect with a web server or reverse proxy that you prefer.
 3. Deploy it in the cloud infrastructure that you prefer (Ask for an instance if you don't have).
 4. Create a basic document with the steps to deploy.
+
+# Deployment as container
+
+The project can be used within a container.
+
+Run the bash script:
+
+	$ docker build -t backend . -f Dockerfile
+
+Run the following command:
+
+	$ docker run --rm -it  backend
+## Challenge Solution by
+
+* **José Nicolielly** - - [jcnil](https://github.com/jcnil/backend-django-test-01)
