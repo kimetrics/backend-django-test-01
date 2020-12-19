@@ -40,7 +40,7 @@ class OrdersTestCase(TestCase):
             self.get_request_body(),
             'application/json'
         )
-        self.assertEqual(response.status_code, 201)
+        self.assertEquals(response.status_code, 201)
 
         data = response.json()
         order = Order.objects.get(id=data['id'])
@@ -48,8 +48,8 @@ class OrdersTestCase(TestCase):
 
     def test_list_orders(self):
         response = self.client.get('/api/orders/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), [])
 
         order = self.create_order()
         expected = [
@@ -73,19 +73,19 @@ class OrdersTestCase(TestCase):
             }
         ]
         response = self.client.get('/api/orders/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_create_order(self):
-        self.assertEqual(Order.objects.count(), 0)
+        self.assertEquals(Order.objects.count(), 0)
 
         response = self.client.post(
             '/api/orders/',
             self.get_request_body(),
             'application/json'
         )
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(Order.objects.count(), 1)
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(Order.objects.count(), 1)
 
         order = Order.objects.get()
         expected = {
@@ -106,13 +106,13 @@ class OrdersTestCase(TestCase):
             ],
             'total': 2500,
         }
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.json(), expected)
 
         self.coke.refresh_from_db()
-        self.assertEqual(self.coke.stock, 9)
+        self.assertEquals(self.coke.stock, 9)
 
         self.chips.refresh_from_db()
-        self.assertEqual(self.chips.stock, 8)
+        self.assertEquals(self.chips.stock, 8)
 
     def test_get_order(self):
         order = self.create_order()
@@ -135,8 +135,8 @@ class OrdersTestCase(TestCase):
             'total': 2500,
         }
         response = self.client.get(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_get_order_after_editing_products(self):
         order = self.create_order()
@@ -160,8 +160,8 @@ class OrdersTestCase(TestCase):
         }
 
         response = self.client.get(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
         self.coke.description = "Coca-Cola 500ml"
         self.coke.unit_price = 800
@@ -172,21 +172,21 @@ class OrdersTestCase(TestCase):
         self.chips.save()
 
         response = self.client.get(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_update_order(self):
         order = self.create_order()
 
         # Test HTTP PUT
         response = self.client.put(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 405)
+        self.assertEquals(response.status_code, 405)
 
         # Test HTTP PATCH
         response = self.client.patch(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 405)
+        self.assertEquals(response.status_code, 405)
 
     def test_delete_order(self):
         order = self.create_order()
         response = self.client.delete(f'/api/orders/{order.id}/')
-        self.assertEqual(response.status_code, 405)
+        self.assertEquals(response.status_code, 405)

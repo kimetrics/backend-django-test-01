@@ -17,8 +17,8 @@ class ProductTestCase(TestCase):
 
     def test_list_products(self):
         response = self.client.get('/api/products/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), [])
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), [])
 
         coke = self.create_coke()
         expected = [
@@ -30,11 +30,11 @@ class ProductTestCase(TestCase):
             }
         ]
         response = self.client.get('/api/products/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_create_product(self):
-        self.assertEqual(Product.objects.count(), 0)
+        self.assertEquals(Product.objects.count(), 0)
 
         body = {
             'description': 'Coca-Cola',
@@ -42,8 +42,8 @@ class ProductTestCase(TestCase):
             'stock': 10,
         }
         response = self.client.post('/api/products/', body, 'application/json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(Product.objects.count(), 1)
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(Product.objects.count(), 1)
 
         product = Product.objects.get()
         expected = {
@@ -52,7 +52,7 @@ class ProductTestCase(TestCase):
             'unit_price': 500,
             'stock': 10,
         }
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.json(), expected)
 
     def test_get_product(self):
         coke = self.create_coke()
@@ -63,8 +63,8 @@ class ProductTestCase(TestCase):
             'stock': 10,
         }
         response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_get_product_after_edition(self):
         coke = self.create_coke()
@@ -75,8 +75,8 @@ class ProductTestCase(TestCase):
             'stock': 10,
         }
         response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
         coke.description = "Coca-Cola 500ml"
         coke.unit_price = 800
@@ -89,13 +89,13 @@ class ProductTestCase(TestCase):
             'stock': 10,
         }
         response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_update_product(self):
         coke = self.create_coke()
         response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
 
         # Test HTTP PUT
         body = {
@@ -114,8 +114,8 @@ class ProductTestCase(TestCase):
             body,
             'application/json'
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
         # Test HTTP PATCH
         body = {
@@ -133,10 +133,10 @@ class ProductTestCase(TestCase):
             body,
             'application/json'
         )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), expected)
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), expected)
 
     def test_delete_product(self):
         coke = self.create_coke()
         response = self.client.delete(f'/api/products/{coke.id}/')
-        self.assertEqual(response.status_code, 405)
+        self.assertEquals(response.status_code, 405)
