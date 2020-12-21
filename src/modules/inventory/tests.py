@@ -41,8 +41,8 @@ class ProductTestCase(TestCase):
             'unit_price': 500,
             'stock': 10,
         }
-        response = self.client.post('/api/products/', body, 'application/json')
-        self.assertEquals(response.status_code, 201)
+        response = self.client.post('/api/products/create/', body, 'application/json')
+        self.assertEquals(response.status_code, 200)
         self.assertEquals(Product.objects.count(), 1)
 
         product = Product.objects.get()
@@ -62,7 +62,7 @@ class ProductTestCase(TestCase):
             'unit_price': 500,
             'stock': 10,
         }
-        response = self.client.get(f'/api/products/{coke.id}/')
+        response = self.client.get(f'/api/products/retrieve/{coke.id}/')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), expected)
 
@@ -74,9 +74,9 @@ class ProductTestCase(TestCase):
             'unit_price': 500,
             'stock': 10,
         }
-        response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.json(), expected)
+        response = self.client.get(f'/api/products/retrieve/{coke.id}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
 
         coke.description = "Coca-Cola 500ml"
         coke.unit_price = 800
@@ -88,14 +88,14 @@ class ProductTestCase(TestCase):
             'unit_price': 800,
             'stock': 10,
         }
-        response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.json(), expected)
+        response = self.client.get(f'/api/products/retrieve/{coke.id}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
 
     def test_update_product(self):
         coke = self.create_coke()
-        response = self.client.get(f'/api/products/{coke.id}/')
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(f'/api/products/retrieve/{coke.id}/')
+        self.assertEqual(response.status_code, 200)
 
         # Test HTTP PUT
         body = {
@@ -110,12 +110,12 @@ class ProductTestCase(TestCase):
             'stock': 5,
         }
         response = self.client.put(
-            f'/api/products/{coke.id}/',
+            f'/api/products/update/{coke.id}/',
             body,
             'application/json'
         )
-        self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.json(), expected)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
 
         # Test HTTP PATCH
         body = {
@@ -129,14 +129,14 @@ class ProductTestCase(TestCase):
             'stock': 6,
         }
         response = self.client.patch(
-            f'/api/products/{coke.id}/',
+            f'/api/products/update/{coke.id}/',
             body,
             'application/json'
         )
         self.assertEquals(response.status_code, 200)
-        self.assertEquals(response.json(), expected)
+        self.assertEqual(response.json(), expected)
 
     def test_delete_product(self):
         coke = self.create_coke()
-        response = self.client.delete(f'/api/products/{coke.id}/')
+        response = self.client.delete(f'/api/products/delete/{coke.id}/')
         self.assertEquals(response.status_code, 405)

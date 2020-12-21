@@ -36,7 +36,7 @@ class OrdersTestCase(TestCase):
 
     def create_order(self):
         response = self.client.post(
-            '/api/orders/',
+            '/api/orders/create/',
             self.get_request_body(),
             'application/json'
         )
@@ -80,11 +80,11 @@ class OrdersTestCase(TestCase):
         self.assertEquals(Order.objects.count(), 0)
 
         response = self.client.post(
-            '/api/orders/',
+            '/api/orders/create/',
             self.get_request_body(),
             'application/json'
         )
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
         self.assertEquals(Order.objects.count(), 1)
 
         order = Order.objects.get()
@@ -134,7 +134,7 @@ class OrdersTestCase(TestCase):
             ],
             'total': 2500,
         }
-        response = self.client.get(f'/api/orders/{order.id}/')
+        response = self.client.get(f'/api/orders/retrieve/{order.id}/')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), expected)
 
@@ -159,7 +159,7 @@ class OrdersTestCase(TestCase):
             'total': 2500,
         }
 
-        response = self.client.get(f'/api/orders/{order.id}/')
+        response = self.client.get(f'/api/orders/retrieve/{order.id}/')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), expected)
 
@@ -171,7 +171,7 @@ class OrdersTestCase(TestCase):
         self.chips.unit_price = 900
         self.chips.save()
 
-        response = self.client.get(f'/api/orders/{order.id}/')
+        response = self.client.get(f'/api/orders/retrieve/{order.id}/')
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), expected)
 
@@ -179,14 +179,14 @@ class OrdersTestCase(TestCase):
         order = self.create_order()
 
         # Test HTTP PUT
-        response = self.client.put(f'/api/orders/{order.id}/')
+        response = self.client.put(f'/api/orders/update/{order.id}/')
         self.assertEquals(response.status_code, 405)
 
         # Test HTTP PATCH
-        response = self.client.patch(f'/api/orders/{order.id}/')
+        response = self.client.patch(f'/api/orders/update/{order.id}/')
         self.assertEquals(response.status_code, 405)
 
     def test_delete_order(self):
         order = self.create_order()
-        response = self.client.delete(f'/api/orders/{order.id}/')
+        response = self.client.delete(f'/api/orders/delete/{order.id}/')
         self.assertEquals(response.status_code, 405)
