@@ -10,7 +10,6 @@ class ProductsList( APIView ):
             products = Product.objects.all()
             serialized_products = SerializedProduct( products, many = True )
             print ( "////////////////////////////////LISTANDO  PRODUCTOS////////////////////////////////" )
-            print( serialized_products.data )
             return Response( serialized_products.data, status = status.HTTP_200_OK )
         except Exception as e:
             return Response( { "Status" : "BAD", "End" : e }, status = 405 )

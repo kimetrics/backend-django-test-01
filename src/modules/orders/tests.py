@@ -40,7 +40,7 @@ class OrdersTestCase(TestCase):
             self.get_request_body(),
             'application/json'
         )
-        self.assertEquals(response.status_code, 201)
+        self.assertEquals(response.status_code, 200)
 
         data = response.json()
         order = Order.objects.get(id=data['id'])
@@ -55,7 +55,7 @@ class OrdersTestCase(TestCase):
         expected = [
             {
                 'id': order.id,
-                'items': [
+                'items': str([
                     {
                         'description': 'Coca-Cola',
                         'quantity': 1,
@@ -68,7 +68,7 @@ class OrdersTestCase(TestCase):
                         'unit_price': 1000,
                         'total': 2000,
                     }
-                ],
+                ]),
                 'total': 2500,
             }
         ]
@@ -118,7 +118,7 @@ class OrdersTestCase(TestCase):
         order = self.create_order()
         expected = {
             'id': order.id,
-            'items': [
+            'items': str([
                 {
                     'description': 'Coca-Cola',
                     'quantity': 1,
@@ -131,7 +131,7 @@ class OrdersTestCase(TestCase):
                     'unit_price': 1000,
                     'total': 2000,
                 }
-            ],
+            ]),
             'total': 2500,
         }
         response = self.client.get(f'/api/orders/retrieve/{order.id}/')
@@ -142,7 +142,7 @@ class OrdersTestCase(TestCase):
         order = self.create_order()
         expected = {
             'id': order.id,
-            'items': [
+            'items': str([
                 {
                     'description': 'Coca-Cola',
                     'quantity': 1,
@@ -155,7 +155,7 @@ class OrdersTestCase(TestCase):
                     'unit_price': 1000,
                     'total': 2000,
                 }
-            ],
+            ]),
             'total': 2500,
         }
 

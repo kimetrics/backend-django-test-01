@@ -6,5 +6,5 @@ from django.core.exceptions import ValidationError
 Modelo que representa una orden.
 """
 class Order(models.Model):
-    items = models.CharField(max_length=200, default='[]')
-    total = models.IntegerField() 
+    items = models.CharField(max_length=400, default='[]')
+    total = models.IntegerField(default = 0) 
