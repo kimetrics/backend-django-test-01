@@ -11,7 +11,7 @@ class ProductTestCase(TestCase):
     def create_coke(self):
         return Product.objects.create(
             description='Coca-Cola',
-            unit_price=500,
+            unit_price='500.01',
             stock=10
         )
 
@@ -25,7 +25,7 @@ class ProductTestCase(TestCase):
             {
                 'id': coke.id,
                 'description': 'Coca-Cola',
-                'unit_price': 500,
+                'unit_price': '500.01',
                 'stock': 10,
             }
         ]
@@ -38,7 +38,7 @@ class ProductTestCase(TestCase):
 
         body = {
             'description': 'Coca-Cola',
-            'unit_price': 500,
+            'unit_price': '500.01',
             'stock': 10,
         }
         response = self.client.post('/api/products/create/', body, 'application/json')
@@ -49,7 +49,7 @@ class ProductTestCase(TestCase):
         expected = {
             'id': product.id,
             'description': 'Coca-Cola',
-            'unit_price': 500,
+            'unit_price': '500.01',
             'stock': 10,
         }
         self.assertEquals(response.json(), expected)
@@ -59,7 +59,7 @@ class ProductTestCase(TestCase):
         expected = {
             'id': coke.id,
             'description': 'Coca-Cola',
-            'unit_price': 500,
+            'unit_price': '500.01',
             'stock': 10,
         }
         response = self.client.get(f'/api/products/retrieve/{coke.id}/')
@@ -71,7 +71,7 @@ class ProductTestCase(TestCase):
         expected = {
             'id': coke.id,
             'description': 'Coca-Cola',
-            'unit_price': 500,
+            'unit_price': '500.01',
             'stock': 10,
         }
         response = self.client.get(f'/api/products/retrieve/{coke.id}/')
@@ -79,13 +79,13 @@ class ProductTestCase(TestCase):
         self.assertEqual(response.json(), expected)
 
         coke.description = "Coca-Cola 500ml"
-        coke.unit_price = 800
+        coke.unit_price = '800.01'
         coke.save()
 
         expected = {
             'id': coke.id,
             'description': 'Coca-Cola 500ml',
-            'unit_price': 800,
+            'unit_price': '800.01',
             'stock': 10,
         }
         response = self.client.get(f'/api/products/retrieve/{coke.id}/')
@@ -100,13 +100,13 @@ class ProductTestCase(TestCase):
         # Test HTTP PUT
         body = {
             'description': 'Coca-Cola 500ml',
-            'unit_price': 800,
+            'unit_price': '800.01',
             'stock': 5,
         }
         expected = {
             'id': coke.id,
             'description': 'Coca-Cola 500ml',
-            'unit_price': 800,
+            'unit_price': '800.01',
             'stock': 5,
         }
         response = self.client.put(
@@ -119,13 +119,13 @@ class ProductTestCase(TestCase):
 
         # Test HTTP PATCH
         body = {
-            'unit_price': 900,
+            'unit_price': '900.01',
             'stock': 6,
         }
         expected = {
             'id': coke.id,
             'description': 'Coca-Cola 500ml',
-            'unit_price': 900,
+            'unit_price': '900.01',
             'stock': 6,
         }
         response = self.client.patch(

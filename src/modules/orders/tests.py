@@ -11,12 +11,12 @@ class OrdersTestCase(TestCase):
         self.client = Client()
         self.coke = Product.objects.create(
             description="Coca-Cola",
-            unit_price=500,
+            unit_price=500.01,
             stock=10,
         )
         self.chips = Product.objects.create(
             description="Potato Chips",
-            unit_price=1000,
+            unit_price=1000.01,
             stock=10,
         )
 
@@ -59,17 +59,17 @@ class OrdersTestCase(TestCase):
                     {
                         'description': 'Coca-Cola',
                         'quantity': 1,
-                        'unit_price': 500,
-                        'total': 500,
+                        'unit_price': 500.01,
+                        'total': 500.01,
                     },
                     {
                         'description': 'Potato Chips',
                         'quantity': 2,
-                        'unit_price': 1000,
-                        'total': 2000,
+                        'unit_price': 1000.01,
+                        'total': 2000.02,
                     }
                 ]),
-                'total': 2500,
+                'total': '2500.03',
             }
         ]
         response = self.client.get('/api/orders/')
@@ -94,17 +94,17 @@ class OrdersTestCase(TestCase):
                 {
                     'description': 'Coca-Cola',
                     'quantity': 1,
-                    'unit_price': 500,
-                    'total': 500,
+                    'unit_price': 500.01,
+                    'total': 500.01,
                 },
                 {
                     'description': 'Potato Chips',
                     'quantity': 2,
-                    'unit_price': 1000,
-                    'total': 2000,
+                    'unit_price': 1000.01,
+                    'total': 2000.02,
                 }
             ],
-            'total': 2500,
+            'total': 2500.03,
         }
         self.assertEquals(response.json(), expected)
 
@@ -122,17 +122,17 @@ class OrdersTestCase(TestCase):
                 {
                     'description': 'Coca-Cola',
                     'quantity': 1,
-                    'unit_price': 500,
-                    'total': 500,
+                    'unit_price': 500.01,
+                    'total': 500.01,
                 },
                 {
                     'description': 'Potato Chips',
                     'quantity': 2,
-                    'unit_price': 1000,
-                    'total': 2000,
+                    'unit_price': 1000.01,
+                    'total': 2000.02,
                 }
             ]),
-            'total': 2500,
+            'total': 2500.03,
         }
         response = self.client.get(f'/api/orders/retrieve/{order.id}/')
         self.assertEquals(response.status_code, 200)
@@ -146,17 +146,17 @@ class OrdersTestCase(TestCase):
                 {
                     'description': 'Coca-Cola',
                     'quantity': 1,
-                    'unit_price': 500,
-                    'total': 500,
+                    'unit_price': 500.01,
+                    'total': 500.01,
                 },
                 {
                     'description': 'Potato Chips',
                     'quantity': 2,
-                    'unit_price': 1000,
-                    'total': 2000,
+                    'unit_price': 1000.01,
+                    'total': 2000.02,
                 }
             ]),
-            'total': 2500,
+            'total': 2500.03,
         }
 
         response = self.client.get(f'/api/orders/retrieve/{order.id}/')
@@ -164,11 +164,11 @@ class OrdersTestCase(TestCase):
         self.assertEquals(response.json(), expected)
 
         self.coke.description = "Coca-Cola 500ml"
-        self.coke.unit_price = 800
+        self.coke.unit_price = 800.01
         self.coke.save()
 
         self.chips.description = "Potato Chips 100gr"
-        self.chips.unit_price = 900
+        self.chips.unit_price = 900.01
         self.chips.save()
 
         response = self.client.get(f'/api/orders/retrieve/{order.id}/')

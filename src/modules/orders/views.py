@@ -1,4 +1,4 @@
-import json
+from decimal import Decimal
 from .models import Order
 from modules.inventory.models import Product
 from rest_framework import status
@@ -26,22 +26,22 @@ def create_order(data):
             }
         for prod in items_init:
             item = {}
-            quantity = prod["quantity"]
+            quantity = float(prod["quantity"])
             product = Product.objects.get( id = prod[ "id" ] )
             if product.stock >= quantity:
-                unit_price = product.unit_price
+                unit_price = float(product.unit_price)
                 total_item = quantity * unit_price
                 total = total + total_item
                 item = {
                         'description': product.description,
-                        'quantity': quantity,
+                        'quantity': prod["quantity"],
                         'unit_price': unit_price,
                         'total': total_item
                         }
                 order["items"].append(item)
                 product.stock = product.stock - quantity
                 product.save()
-            order['total'] = total
+            order['total'] = round(total, 2)
         return order
     except Exception as error:
         return {

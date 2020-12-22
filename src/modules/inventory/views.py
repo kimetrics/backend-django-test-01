@@ -32,7 +32,7 @@ class CreateProduct( APIView ):
                 return Response({ 
                                     'id' : product.id, 
                                     'description' : description, 
-                                    'unit_price' : unit_price, 
+                                    'unit_price' : str(unit_price), 
                                     'stock' : stock 
                                 },
                                 status = status.HTTP_200_OK )
