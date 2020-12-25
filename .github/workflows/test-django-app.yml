@@ -24,18 +24,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python 3.8.5
       uses: actions/setup-python@v2
       with:
         python-version: 3.8.5
-    - name: Install dependencies
+
+    - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Running tests
 
+    - name: Running django tests
       run: |
-        cd src
         python manage.py test
       env:
         DB_NAME: test
@@ -43,6 +44,8 @@ jobs:
         DB_PASS: test
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
+
     - name: Lint with flake8
       run: |
+        cd src
         flake8
