@@ -37,6 +37,7 @@ jobs:
 
     - name: Running django tests
       run: |
+        cd src
         python manage.py test
       env:
         DB_NAME: test
