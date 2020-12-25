@@ -2,7 +2,7 @@ from django.test import Client, TestCase
 
 from modules.inventory.models import Product
 
-from .models import Order
+from modules.orders.models import Order
 
 
 class OrdersTestCase(TestCase):
@@ -139,6 +139,7 @@ class OrdersTestCase(TestCase):
         self.assertEqual(response.json(), expected)
 
     def test_get_order_after_editing_products(self):
+        self.maxDiff = None
         order = self.create_order()
         expected = {
             'id': order.id,
@@ -171,6 +172,24 @@ class OrdersTestCase(TestCase):
         self.chips.unit_price = 900
         self.chips.save()
 
+        expected = {
+            'id': order.id,
+            'items': [
+                {
+                    'description': 'Coca-Cola 500ml',
+                    'quantity': 1,
+                    'unit_price': 800,
+                    'total': 800,
+                },
+                {
+                    'description': 'Potato Chips 100gr',
+                    'quantity': 2,
+                    'unit_price': 900,
+                    'total': 1800,
+                }
+            ],
+            'total': 2600,
+        }
         response = self.client.get(f'/api/orders/{order.id}/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), expected)

@@ -1,3 +1,6 @@
 *.pyc
 *.coverage
 *.sqlite3
+.python-version
+staticfiles/
+.idea/
