@@ -7,9 +7,20 @@ on:
     branches: [ features ]
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12:0-alpine
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - "5432:5432"
 
     steps:
     - uses: actions/checkout@v2
@@ -22,9 +33,16 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Running tests
+
       run: |
         cd src
         python manage.py test
+      env:
+        DB_NAME: test
+        DB_USER: test
+        DB_PASS: test
+        DB_HOST: 127.0.0.1
+        DB_PORT: 5432
     - name: Lint with flake8
       run: |
         flake8

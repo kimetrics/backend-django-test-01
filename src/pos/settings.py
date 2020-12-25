@@ -20,7 +20,8 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(str(BASE_DIR / '.env'))
+if env.bool('LOAD_ENV_FILE', default=False):
+    environ.Env.read_env(str(BASE_DIR / '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -83,7 +84,14 @@ WSGI_APPLICATION = 'pos.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgresql://user:pass@localhost:5432/dbname')
+    'default': {
+        'ENGINE': env('DB_ENGINE', default='django.db.backends.postgresql'),
+        'NAME': env('DB_NAME', default='db_name'),
+        'USER': env('DB_USER', default='db_user'),
+        'PASSWORD': env('DB_PASS', default='db_pass'),
+        'HOST': env('DB_HOST', default='dh_host'),
+        'PORT': env('DB_PORT', default='5432'),
+    }
 }
 
 
