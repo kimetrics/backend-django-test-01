@@ -9,4 +9,4 @@ services:
 before_script: pip install docker-compose
 
 script:
-  - docker-compose run django python manage.py test && flake8
+  - docker-compose run -e START_APP=no django python manage.py test && flake8
