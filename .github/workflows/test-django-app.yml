@@ -57,6 +57,6 @@ jobs:
       - test
     runs-on: ubuntu-latest
     steps:
-      - name: testing second job
+    - name: testing second job
       run: |
         echo "Hello docker"
