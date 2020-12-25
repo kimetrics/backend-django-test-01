@@ -2,14 +2,15 @@ name: Python application
 
 on:
   push:
-    branches: [ features ]
+    branches:
+      - features
   pull_request:
-    branches: [ features ]
+    branches:
+      - main
 
 jobs:
 
-  build:
-
+  test:
     runs-on: ubuntu-latest
 
     services:
@@ -50,3 +51,12 @@ jobs:
       run: |
         cd src
         flake8
+
+  docker-images:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing second job
+      run: |
+        echo "Hello docker"
