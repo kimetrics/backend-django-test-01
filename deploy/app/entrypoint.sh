@@ -14,7 +14,7 @@ fi
 start_app=${START_APP-True}
 if [ "$start_app" == 'True' ]; then
   echo "Starting supervisord..."
-  /usr/bin/supervisord -n -c /etc/supervisor/conf.d/pos.supervisor.conf
+  /usr/bin/supervisord -n -edebug -c /etc/supervisor/conf.d/pos.supervisor.conf
 fi
 
 # Run conmmand passed to argument script
