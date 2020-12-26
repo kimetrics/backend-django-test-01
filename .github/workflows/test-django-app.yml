@@ -107,6 +107,5 @@ jobs:
           heroku config:set DB_PASS=${{ secrets.PROD_DB_PASS }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_HOST=${{ secrets.PROD_DB_HOST }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_PORT=${{ secrets.PROD_DB_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set APP_PORT=${{ secrets.PROD_APP_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DEBUG=True -a ${{ secrets.HEROKU_APP_NAME }}
           heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa

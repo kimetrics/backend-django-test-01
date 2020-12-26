@@ -14,6 +14,7 @@ fi
 start_app=${START_APP-True}
 if [ "$start_app" == 'True' ]; then
   echo "Starting supervisord..."
+  echo "Running on port $PORT"
   /usr/bin/supervisord -n -c /etc/supervisor/conf.d/pos.supervisor.conf
 fi
 
