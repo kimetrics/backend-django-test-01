@@ -4,3 +4,4 @@ django-environ
 psycopg2-binary
 flake8
 gunicorn
+WhiteNoise
