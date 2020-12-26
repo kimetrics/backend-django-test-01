@@ -54,7 +54,6 @@ jobs:
         flake8
 
   docker-build:
-    needs: [test]
     name: Docker build
     runs-on: ubuntu-latest
     steps:
