@@ -76,7 +76,7 @@ jobs:
 
 
   deploy:
-    needs: [docker-build]
+   # needs: [docker-build]
     name: Deploying in Heroku
     runs-on: ubuntu-latest
     steps:
