@@ -109,4 +109,4 @@ jobs:
           heroku config:set DB_PORT=${{ secrets.PROD_DB_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DEBUG=True -a ${{ secrets.HEROKU_APP_NAME }}
           heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa
-          heroku ps:scale -a ${{ secrets.HEROKU_APP_NAME }} web=1
+          heroku ps:scale -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa=1
