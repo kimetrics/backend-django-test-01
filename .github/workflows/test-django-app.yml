@@ -88,12 +88,16 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
 
+      - name: Get image tag
+        id: image_tag
+        run: echo ::set-output name=tag::${GITHUB_REF##*/}
+
       - name: Build and push to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} kimetrics:${GITHUB_REF##*/}
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} kimetrics:${{ steps.image_tag.outputs.tagz }}
 
       - name: Deploying on heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics:${GITHUB_REF##*/}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics:${{ steps.image_tag.outputs.tag }}
