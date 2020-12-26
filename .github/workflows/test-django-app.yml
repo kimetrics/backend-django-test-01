@@ -75,7 +75,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         push: ${{ github.event_name != 'pull_request' }}
         tag_with_ref: true
-        tags: ${{ steps.get_version.outputs.VERSION }}
+        tags:  ${{ github.event.ref }}
+
 
 
 
