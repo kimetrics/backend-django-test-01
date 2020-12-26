@@ -88,16 +88,12 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:login
 
-      - name: Get image tag
-        id: image_tag
-        run: echo ::set-output name=tag::${GITHUB_REF##*/}
-
-      - name: Build and push to heroku
+      - name: Build and push "web" image to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
 
-      - name: Deploying on heroku
+      - name: Deploying "web" image on heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |

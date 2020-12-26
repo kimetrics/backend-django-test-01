@@ -10,6 +10,9 @@ if [ "$django_migrate" == 'True' ]; then
   python manage.py migrate
 fi
 
+python manage.py collectstatic --noinput
+
+
 # Run the app with supervisor daemon using default.conf and including pos.supervisor.conf
 start_app=${START_APP-True}
 if [ "$start_app" == 'True' ]; then
