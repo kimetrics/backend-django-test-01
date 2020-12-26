@@ -52,11 +52,26 @@ jobs:
         cd src
         flake8
 
-  docker-images:
-    needs:
-      - test
+  docker-build:
+    needs: [test]
+    name: Build and push app image to Docker hub
     runs-on: ubuntu-latest
     steps:
-    - name: testing second job
-      run: |
-        echo "Hello docker"
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: Build and Push to Docker Hub
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        repository: fredevel/kimetrics-pos
+        tag_with_ref: true
+
+  deploy:
+    needs:
+      - docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing second job
+        run: |
+          echo "Deploying app"
