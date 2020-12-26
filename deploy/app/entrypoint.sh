@@ -10,7 +10,13 @@ if [ "$django_migrate" == 'True' ]; then
   python manage.py migrate
 fi
 
-python manage.py collectstatic --noinput
+
+# Check if need collect static files
+django_collectstatic=${DJANGO_COLLECTSTATIC-False}
+if [ "$django_collectstatic" == 'True' ]; then
+  echo "Collecting static files..."
+  python manage.py collectstatic --noinput
+fi
 
 
 # Run the app with supervisor daemon using default.conf and including pos.supervisor.conf
