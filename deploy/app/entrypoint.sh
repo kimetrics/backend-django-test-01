@@ -6,13 +6,15 @@
 # Check if need migrations
 django_migrate=${DJANGO_MIGRATE-False}
 if [ "$django_migrate" == 'True' ]; then
+  echo "Making migrations..."
   python manage.py migrate
 fi
 
 # Run the app with supervisor daemon using default.conf and including pos.supervisor.conf
 start_app=${START_APP-True}
 if [ "$start_app" == 'True' ]; then
-  /usr/bin/supervisord -n
+  echo "Starting supervisord..."
+  /usr/bin/supervisord -n -c /etc/supervisor/conf.d/pos.supervisor.conf
 fi
 
 # Run conmmand passed to argument script
