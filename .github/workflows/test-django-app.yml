@@ -53,12 +53,18 @@ jobs:
         cd src
         flake8
 
+
   docker-build:
     name: Docker build
     runs-on: ubuntu-latest
     steps:
     - name: Check out the repo
       uses: actions/checkout@v2
+
+    - name: Get APP version from tag
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
 
     - name: Build and Push to Docker Hub
       uses: docker/build-push-action@v1
@@ -68,7 +74,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         push: ${{ github.event_name != 'pull_request' }}
-        tag_with_ref: false
+        tag_with_ref: true
+        tags: ${{ steps.get_version.outputs.VERSION }}
+
+
 
   deploy:
     needs: [docker-build]
