@@ -5,7 +5,7 @@ on:
     branches:
       - features
     tags:
-      - *
+      - 0.*
   pull_request:
     branches:
       - main
