@@ -95,7 +95,7 @@ jobs:
       - name: Build and push to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
 
       - name: Deploying on heroku
         env:
@@ -108,5 +108,5 @@ jobs:
           heroku config:set DB_HOST=${{ secrets.PROD_DB_HOST }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_PORT=${{ secrets.PROD_DB_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DEBUG=True -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa
-          heroku ps:scale -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa=1
+          heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+          heroku ps:scale -a ${{ secrets.HEROKU_APP_NAME }} web=1
