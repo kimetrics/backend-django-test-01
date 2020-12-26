@@ -64,7 +64,7 @@ jobs:
       uses: docker/build-push-action@v1
       with:
         dockerfile: ./Dockerfile
-        registry: fredevel/kimetrics-pos
+        repository: fredevel/kimetrics-pos
         push: ${{ github.event_name != 'pull_request' }}
         tag_with_ref: true
 
