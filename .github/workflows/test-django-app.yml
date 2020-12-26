@@ -65,6 +65,8 @@ jobs:
       with:
         dockerfile: ./Dockerfile
         repository: fredevel/kimetrics-pos
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
         push: ${{ github.event_name != 'pull_request' }}
         tag_with_ref: true
 
