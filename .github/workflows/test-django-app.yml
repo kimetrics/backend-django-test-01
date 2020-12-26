@@ -101,7 +101,7 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          heroku config:set SECRET_KEY=${{ secrets.PROD_SECRET_KEY }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set SECRET_KEY="${{ secrets.PROD_SECRET_KEY }}" -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_NAME=${{ secrets.PROD_DB_NAME }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_USER=${{ secrets.PROD_DB_USER }} -a ${{ secrets.HEROKU_APP_NAME }}
           heroku config:set DB_PASS=${{ secrets.PROD_DB_PASS }} -a ${{ secrets.HEROKU_APP_NAME }}
