@@ -56,3 +56,7 @@ Note that when a order is created, the corresponding products' stock must be upd
 2. Configure with `Gunicorn` and connect with a web server or reverse proxy that you prefer.
 3. Deploy it in the cloud infrastructure that you prefer (Ask for an instance if you don't have).
 4. Create a basic document with the steps to deploy.
+
+
+
+### Run develop Docker environment

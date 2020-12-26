@@ -4,7 +4,7 @@ upstream pos_django {
 
 server {
 
-    listen ${NGINX_PORT};
+    listen ${PORT};
 
     location / {
         proxy_pass http://pos_django;

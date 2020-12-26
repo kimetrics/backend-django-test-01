@@ -1,6 +1,6 @@
 FROM nginx:stable-alpine
 
-COPY pos-app.conf /etc/nginx/templates/pos-app.conf.template
+COPY pos-app.conf.template /etc/nginx/templates/pos-app.conf.template
 
 COPY staticfiles /app/pos/staticfiles/
 
