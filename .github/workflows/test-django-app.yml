@@ -100,4 +100,13 @@ jobs:
       - name: Deploying on heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa
+        run: |
+          heroku config:set SECRET_KEY=${{ secrets.PROD_SECRET_KEY }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DB_NAME=${{ secrets.PROD_DB_NAME }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DB_USER=${{ secrets.PROD_DB_USER }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DB_PASS=${{ secrets.PROD_DB_PASS }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DB_HOST=${{ secrets.PROD_DB_HOST }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DB_PORT=${{ secrets.PROD_DB_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set APP_PORT=${{ secrets.PROD_APP_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku config:set DEBUG=True -a ${{ secrets.HEROKU_APP_NAME }}
+          heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} kimetrics-qa

@@ -1,5 +1,6 @@
 version: "3.8"
 
+
 services:
 
   nginx:
@@ -10,6 +11,10 @@ services:
       - 8080:80
     environment:
       - NGINX_PORT=80
+      - APP_HOST=django
+      - APP_PORT=9999
+      - STATIC_URL=/static/
+      - STATIC_ROOT=/app/pos/staticfiles/
     depends_on:
       - django
 
@@ -19,14 +24,13 @@ services:
     image: kimetrics-app:latest
     environment:
       - DJANGO_MIGRATE=True
+      - APP_PORT=9999
       - DB_NAME=test
       - DB_USER=test
       - DB_PASS=test
       - DB_HOST=db
       - DB_PORT=5432
       - DEBUG=True
-    ports:
-      - "8000:8000"
     volumes:
       - ./src:/app
     depends_on:
