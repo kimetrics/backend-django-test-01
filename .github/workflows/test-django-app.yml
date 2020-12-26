@@ -68,7 +68,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         push: ${{ github.event_name != 'pull_request' }}
-        tag_with_ref: true
+        tag_with_ref: false
 
   deploy:
     needs: [docker-build]
