@@ -20,7 +20,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           dockerfile: ./Dockerfile
-          repository: ${{ secrets.KIMETRICS_DOCKERHUB_REPOSITORY }}
+          repository: ${{ secrets.DOCKERHUB_REPOSITORY }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
