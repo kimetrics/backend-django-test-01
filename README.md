@@ -60,3 +60,31 @@ Note that when a order is created, the corresponding products' stock must be upd
 
 
 ### Run develop Docker environment
+
+To run development environment using docker and docker-compose,
+you only need to run:
+
+    $ docker-compose up --build
+
+The docker-compose.yml file define an architecture that uses
+a Nginx services as reverse proxy for the app, a PostgreSQL service
+for the database and a django service that run the application.
+
+- The djago service is built with the main *Dockerfile* in the project root path, and all the configurations
+  files are stored in *deploy/app/*, like gunicorn, supervisor, entrypoint and wait-for-it.
+
+
+- The nginx service is built with the *Dockerfile* inside of *deploy/nginx/*, and store the nginx configuration
+template for the application. The differences between template file and configuration file is that a
+template file can use environment variables and a configuration file can't. The nginx image (>1.19)
+reads the template files inside the folder */etc/nginx/templates/* and replace the environment variables,
+after the replacement the config files are moved into */etc/nginx/conf.d/* removing the *.template* extension from the
+template file. An input-outpu explame is showing below:
+  
+
+    Input:   /etc/nginx/templates/mysite.conf.template
+    Output:  /etc/nginx/conf.d/mysite.conf
+
+Feel free to change the nginx and application configuration files to adapt to you needs.
+
+To theploy the application using heroku see [DEPLOY.md](DEPLOY.md)

@@ -62,19 +62,15 @@ Django application we need to set the nex Config Vars that will be used as envir
 
 ### 2 - Create a docker hub account and repository
 
-This part is optional and only is needed if you want to push the Docker
-image built in the CI/CD workflow.
+This part is optional and only is needed if you want to push the Docker image built in the CI/CD workflow.
 
-Once an account was created, you need the repository name
-the unsername for Docker Hub and your password. This credentiasl
+Once an account was created, you need the repository name the unsername for Docker Hub and your password. This credentiasl
 will be used in the set-up of Github repository.
 
 ### 3 - Set-up the Github repository to run actions
 
-To allow github actions to push image in Docker hub and
-deploy de application in heroku, we need to configure the
-credentials, api key and other variables to be used by the 
-workflow. To do this we need to define de varibles as secrets
+To allow github actions to push image in Docker hub and deploy de application in heroku, we need to configure the
+credentials, api key and other variables to be used by the workflow. To do this we need to define de varibles as secrets
 into the github repository.
 
 - Select *Settings* in the repository menu:
@@ -99,8 +95,6 @@ into the github repository.
     
 ### 5 - Test workflows and deployment
 
-To make sure that the github actions and workflows works
-correctly, it's necesary to do a push on any branch to run the
-django tests, push a tag (eg. v0.1.0) on nay branch to test
-the docker image build and push to Docker Hub, and do a pus
+To make sure that the github actions and workflows works correctly, it's necesary to do a push on any branch to run the
+django tests, push a tag (eg. v0.1.0) on nay branch to test the docker image build and push to Docker Hub, and do a pus
 to the main/master branch to deploy in heroku.
