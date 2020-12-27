@@ -1,14 +1,6 @@
 name: Python application
 
 on: [push]
-#  push:
-#    branches:
-#      - features
-#    tags:
-#      - '**'
-#  pull_request:
-#    branches:
-#      - main
 
 jobs:
 
@@ -71,41 +63,5 @@ jobs:
         repository: ${{ secrets.KIMETRICS_DOCKERHUB_REPOSITORY }}
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        push: ${{ startsWith(github.ref, 'refs/tags/') }}
+        push: False
         tag_with_ref: true
-
-
-  deploy:
-   # needs: [docker-build]
-    name: Deploying in Heroku
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-
-      - name: Login to Heroku Container registry
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
-
-      - name: Build and push "web" image to heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
-
-      - name: Deploying "web" image on heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          heroku config:set SECRET_KEY="${{ secrets.PROD_SECRET_KEY }}" -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DB_NAME=${{ secrets.PROD_DB_NAME }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DB_USER=${{ secrets.PROD_DB_USER }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DB_PASS=${{ secrets.PROD_DB_PASS }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DB_HOST=${{ secrets.PROD_DB_HOST }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DB_PORT=${{ secrets.PROD_DB_PORT }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set ALLOWED_HOSTS=${{ secrets.PROD_ALLOWED_HOSTS }} -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DEBUG=False -a ${{ secrets.HEROKU_APP_NAME }}
-          heroku config:set DJANGO_COLLECTSTATIC=True -a ${{ secrets.HEROKU_APP_NAME }}
-
-          heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
-#         heroku ps:scale -a ${{ secrets.HEROKU_APP_NAME }} web=1
