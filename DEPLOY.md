@@ -33,18 +33,18 @@ The deployment on Heroku is only made when a push on main/master branch.
 - Create an account or loggin in to Heroku if you already has an account
 - Create a new application:
 
-![img_1.png](img_1.png)
+![img_1.png](deploy/img/img_1.png)
   
 - In the app dashboard select the *Resources (1)* menu option and in the *Add-ons* section search 
 for *postgres*, then select the add-on *Heroku Postgres (2)*:
   
-![img.png](img2.png)
+![img.png](deploy/img/img2.png)
 
 - Now, we neet to add the environment variables for the application in the Heroku app, to do this
 just need to going to the app *Settings (1)* in the menu, click on the button *Show vars* in the
 *Config Vars* section and add the the pairs KEY-VALUE that you need.
   
-![img.png](img.png)
+![img.png](deploy/img/img.png)
 
 Heroku automatically add the *DATABASE_URL* var when add the *Postgres Heroku* add-on. For this
 Django application we need to set the nex Config Vars that will be used as environment variables into the application:
@@ -79,15 +79,15 @@ into the github repository.
 
 - Select *Settings* in the repository menu:
 
-![img_2.png](img_2.png)
+![img_2.png](deploy/img/img_2.png)
 
 - Clic on *Secrets (1)* menu option and in *New repository secret (2)* button:
 
-![img_3.png](img_3.png)
+![img_3.png](deploy/img/img_3.png)
 
 - Create a new secret writting its name (1) and its value (2), then clic in the *Add secret (3)* button:
 
-![img_4.png](img_4.png)
+![img_4.png](deploy/img/img_4.png)
 
 - The secretes that de workflow needs are:
 
