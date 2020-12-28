@@ -54,6 +54,7 @@ Django application we need to set the nex Config Vars that will be used as envir
 - DEBUG: True or False
 - DJANGO_MIGRATIONS: True or False
 - DJANGO_COLLECTSTATIC: True or False
+- GUNICORN_WORKES: Number of gunicorn workers
 
 ### 2 - Create a docker hub account and repository
 
