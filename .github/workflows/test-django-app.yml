@@ -1,0 +1,65 @@
+name: Python application
+
+on: [push]
+
+jobs:
+
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12.0-alpine
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - "5432:5432"
+
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.8.5
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8.5
+
+    - name: Install python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Running django tests
+      run: |
+        cd src
+        python manage.py test
+      env:
+        DATABASE_URL: postgres://test:test@127.0.0.1:5432/test
+        DB_HOST: 127.0.0.1
+        DB_PORT: 5432
+
+    - name: Lint with flake8
+      run: |
+        cd src
+        flake8
+
+
+  docker-build:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+
+    - name: Build and Push to Docker Hub
+      uses: docker/build-push-action@v1
+      with:
+        dockerfile: ./Dockerfile
+        repository: ${{ secrets.KIMETRICS_DOCKERHUB_REPOSITORY }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        push: False
+        tag_with_ref: true

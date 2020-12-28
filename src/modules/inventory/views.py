@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from django.http import HttpResponseNotAllowed
 
-# Create your views here.
+from rest_framework import viewsets
+
+from .models import Product
+from .serializers import ProductSerializer
+
+
+class ProductApiViewSet(viewsets.ModelViewSet):
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        return HttpResponseNotAllowed('Method not allowed')

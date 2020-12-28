@@ -1,6 +1,6 @@
 from django.test import Client, TestCase
 
-from .models import Product
+from modules.inventory.models import Product
 
 
 class ProductTestCase(TestCase):
