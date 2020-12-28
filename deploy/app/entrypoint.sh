@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Wait for postgres
-/wait-for-it.sh ${DB_HOST}:${DB_PORT}
+/wait-for-it.sh ${DB_HOST}:${DB_PORT-5432}
 
 # Check if need migrations
 django_migrate=${DJANGO_MIGRATE-False}

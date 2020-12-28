@@ -26,6 +26,7 @@ services:
       - DEBUG=False
       - PORT=9999
       - DATABASE_URL=postgres://test:test@db/test
+      - DB_HOST=db
       - ALLOWED_HOSTS=localhost,127.0.0.1
       - DJANGO_MIGRATE=True
       - DJANGO_COLLECTSTATIC=True

@@ -49,6 +49,9 @@ just need to going to the app *Settings (1)* in the menu, click on the button *S
 Heroku automatically add the *DATABASE_URL* var when add the *Postgres Heroku* add-on. For this
 Django application we need to set the nex Config Vars that will be used as environment variables into the application:
 
+- DATABASE_URL: The database url with format "postgres://user:pass@host:port/dbname"
+- DB_HOST: The database url (used for wait-for-it.sh)
+- DB_PORT: The database port (used for wait-for-it.sh)
 - ALLOWED_HOSTS: The url/domain for the heroku app, eg. myapphttps.herokuapp.com
 - SECRET_KEY: The django secret key
 - DEBUG: True or False
