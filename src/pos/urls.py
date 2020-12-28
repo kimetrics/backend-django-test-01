@@ -16,4 +16,4 @@ api_router.register(r'orders', OrderApiViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(api_router.urls)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

@@ -23,11 +23,12 @@ services:
       context: .
     image: kimetrics-app:latest
     environment:
-      - DJANGO_MIGRATE=True
+      - DEBUG=False
       - PORT=9999
       - DATABASE_URL=postgres://test:test@db/test
-      - DEBUG=False
       - ALLOWED_HOSTS=localhost,127.0.0.1
+      - DJANGO_MIGRATE=True
+      - DJANGO_COLLECTSTATIC=True
     volumes:
       - ./src:/app
     depends_on:
