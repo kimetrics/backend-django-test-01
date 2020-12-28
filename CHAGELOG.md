@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add "orders" and "products" endpoits over /api url path.
 - Add docker-compose.yml file to suport docker development.
 - Add Docker files for the application and nginx server.
-- Add travis.yml to support CI/CD in Travis-CI for test pipeline.
-- Add travis.yml to support deployment.
+- Add github accions to support CI/CD test pipeline.
+- Add github accions to support CI/CD deployment in Heroku.
+
 
 ### Changed
 - Change structure code to make easy build the Docker images

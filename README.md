@@ -59,7 +59,7 @@ Note that when a order is created, the corresponding products' stock must be upd
 
 
 
-### Run develop Docker environment
+## Run development Docker environment
 
 To run development environment using docker and docker-compose,
 you only need to run:
@@ -88,3 +88,38 @@ template file. An input-outpu explame is showing below:
 Feel free to change the nginx and application configuration files to adapt to you needs.
 
 To theploy the application using heroku see [DEPLOY.md](DEPLOY.md)
+
+
+## Challenge Querys
+
+### Query 1:
+
+```sql
+SELECT e.estado, t.*, e.nielsen AS aera FROM tienda AS t
+INNER JOIN estado AS e
+ON e.id = t.estado_id
+WHERE venta = (
+	SELECT max(venta) 
+	FROM tienda
+)
+```
+
+### Query 2:
+```sql
+SELECT e.estado, count(e.estado) AS ventas, SUM(t.venta) AS total, MAX(t.venta) as venta_mayor
+FROM tienda AS t
+INNER JOIN estado AS e
+ON e.id = t.estado_id
+GROUP BY e.estado
+ORDER BY total DESC
+```
+
+
+### Query 3
+```sql
+SELECT DISTINCT ON (e.estado) e.estado, t.*
+FROM public.tienda as t
+INNER JOIN estado as e
+on e.id = t.estado_id
+order by e.estado DESC
+```
