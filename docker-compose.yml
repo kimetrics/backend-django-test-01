@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  src_app:
+    build: .
+    volumes:
+      - static:/code/static
+      - .:/code
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/code/static
+    depends_on:
+      - src_app
+    
+
+volumes:
+  .:
+  static:
